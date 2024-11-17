@@ -2,15 +2,16 @@ import asyncio
 import logging
 from aiogram import Bot, Dispatcher, types
 from aiogram.filters.command import Command
-from config import BOT_TOKEN
+from config import config
 from aiogram.enums.dice_emoji import DiceEmoji
 from datetime import datetime
+
 
 
 # Включаем логирование, чтобы не пропустить важные сообщения
 logging.basicConfig(level=logging.INFO)
 # Объект бота
-bot = Bot(token=BOT_TOKEN)
+bot = Bot(token=config.bot_token.get_secret_value())
 # Диспетчер
 dp = Dispatcher()
 dp["started_at"] = datetime.now().strftime("%Y-%m-%d %H:%M")
@@ -44,6 +45,10 @@ async def cmd_test1(message: types.Message):
     await message.reply("Test 1")
 
 
+@dp.message(Command("dice"))
+async def cmd_dice(message: types.Message):
+    await message.answer_dice(emoji="🎲")
+
 # Хэндлер на команду /test2
 async def cmd_test2(message: types.Message):
     await message.reply("Проверочка!")
@@ -56,7 +61,7 @@ async def cmd_answer(message: types.Message):
 @dp.message(Command("reply"))
 async def cmd_reply(message: types.Message):
     await message.reply('Это ответ с "ответом"')
-@dp.message(Command("dice"))
+@dp.message(Command("dice1"))
 async def cmd_dice(message: types.Message, bot: Bot):
     await bot.send_dice(362441942, emoji=DiceEmoji.DICE)
 
