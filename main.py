@@ -6,7 +6,7 @@ from config import config
 from aiogram.enums.dice_emoji import DiceEmoji
 from datetime import datetime
 
-#Проверяю коммит без .енв
+#Прове2ряю коммит без .енв
 
 # Включаем логирование, чтобы не пропустить важные сообщения
 logging.basicConfig(level=logging.INFO)
